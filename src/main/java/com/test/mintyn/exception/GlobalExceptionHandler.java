@@ -4,6 +4,8 @@ import com.test.mintyn.dto.response.CardResponse;
 import com.test.mintyn.dto.response.ErrorResponse;
 import com.test.mintyn.dto.response.Payload;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +45,15 @@ public class GlobalExceptionHandler {
     handleException(ServerException ex) {
         return new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(value
+            = BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public @ResponseBody ErrorResponse
+    handleException(BadCredentialsException ex) {
+        return new ErrorResponse(
+                HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
     }
 
     @ExceptionHandler(value

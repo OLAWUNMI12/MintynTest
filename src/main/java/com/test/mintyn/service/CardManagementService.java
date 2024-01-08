@@ -4,7 +4,6 @@ package com.test.mintyn.service;
 import com.test.mintyn.dto.response.BinListAPIResponse;
 import com.test.mintyn.dto.response.CardResponse;
 import com.test.mintyn.dto.response.Payload;
-import com.test.mintyn.repository.CardStatisticsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,17 +18,14 @@ public class CardManagementService {
 
     private final WebClient webClient;
     private final String binListAPIUrl;
-    private final CardStatisticsRepository cardStatisticsRepository;
     private final CardStatisticService cardStatisticService;
 
 
     public CardManagementService(WebClient webClient,
                                  @Value("${binList.api.url}") String binListAPIUrl,
-                                 CardStatisticsRepository cardStatisticsRepository,
                                  CardStatisticService cardStatisticService) {
         this.webClient = webClient;
         this.binListAPIUrl = binListAPIUrl;
-        this.cardStatisticsRepository = cardStatisticsRepository;
         this.cardStatisticService = cardStatisticService;
     }
 
